@@ -1,12 +1,15 @@
 package labin.immortalservice.Service
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.app.Service
+import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import labin.immortalservice.MainActivity
+import labin.immortalservice.R
 import labin.immortalservice.Receiver.ServiceDestroyReceiver
 import java.util.*
 
@@ -19,13 +22,15 @@ class MainService : Service(){
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        showToast("Start Service")
+        Log.d("test","Start")
+        sendNotification("Start Service")
         return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        showToast("Destroy Service")
+        Log.d("test","Destroy")
+        sendNotification("Destroy Service")
         setAlarmTimer()
     }
 
@@ -40,5 +45,26 @@ class MainService : Service(){
 
     fun showToast(msg : String){
         Toast.makeText(application,msg,Toast.LENGTH_SHORT).show()
+    }
+
+    fun sendNotification(msg : String){
+        //notify 알림 만듦
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val pending = PendingIntent.getActivity(this, 1234, intent, PendingIntent.FLAG_ONE_SHOT)
+
+        val builder = NotificationCompat.Builder(this, "test")
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(msg)
+            .setContentText(msg)
+            .setAutoCancel(true)
+            .setContentIntent(pending)
+
+        //오레오 이상일 경우 notify 채널 등록
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            manager.createNotificationChannel(NotificationChannel("test", "test channel", NotificationManager.IMPORTANCE_HIGH))
+
+        manager.notify(1234,builder.build())
     }
 }

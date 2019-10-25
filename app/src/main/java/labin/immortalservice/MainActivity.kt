@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
+import labin.immortalservice.Service.MainService
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,5 +27,6 @@ class MainActivity : AppCompatActivity() {
             intent.data= Uri.parse("package:"+applicationContext.packageName)
             startActivity(intent)
         }
+        startService(Intent(this,MainService::class.java))
     }
 }
