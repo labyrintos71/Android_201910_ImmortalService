@@ -9,9 +9,15 @@ import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
 import labin.immortalservice.Service.MainService
+import android.widget.Toast
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class MainActivity : AppCompatActivity() {
-
+    var serviceIntent : Intent? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,6 +33,21 @@ class MainActivity : AppCompatActivity() {
             intent.data= Uri.parse("package:"+applicationContext.packageName)
             startActivity(intent)
         }
-        startService(Intent(this,MainService::class.java))
+
+        if (MainService.serviceintent == null) {
+            serviceIntent = Intent(this, MainService::class.java)
+            startService(serviceIntent)
+        } else {
+            serviceIntent = MainService.serviceintent//getInstance().getApplication();
+            Toast.makeText(applicationContext, "already", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        serviceIntent.let {
+            stopService(serviceIntent)
+            serviceIntent =null
+        }
     }
 }

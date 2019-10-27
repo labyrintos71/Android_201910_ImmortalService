@@ -13,7 +13,6 @@ import labin.immortalservice.Service.TempService
 class ServiceDestroyReceiver : BroadcastReceiver (){
     //서비스 종료되었을때 호출되어서 다시 서비스 실행
     override fun onReceive(context: Context?, intent: Intent?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             context?.startForegroundService(Intent(context, TempService::class.java))
         else

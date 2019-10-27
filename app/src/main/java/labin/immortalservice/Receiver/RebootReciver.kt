@@ -13,8 +13,7 @@ import labin.immortalservice.Service.TempService
 class RebootReciver : BroadcastReceiver(){
     //기기가 부팅 되었을 때 서비스 실행
     override fun onReceive(context: Context?, intent: Intent?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             context?.startForegroundService(Intent(context,TempService::class.java))
         else
             context?.startService(Intent(context,MainService::class.java))
