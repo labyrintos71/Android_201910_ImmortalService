@@ -17,10 +17,11 @@ class TempService : Service(){
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         //notify 알림 만듦
-        val builder = NotificationCompat.Builder(this, "default")
-        builder.setSmallIcon(R.mipmap.ic_launcher)
-        builder.setContentTitle(null)
-        builder.setContentText(null)
+        val builder = NotificationCompat.Builder(this, "default").apply {
+            setSmallIcon(R.mipmap.ic_launcher)
+            setContentTitle(null)
+            setContentText(null)
+        }
 
         //오레오 이상일 경우 notify 채널 등록
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
