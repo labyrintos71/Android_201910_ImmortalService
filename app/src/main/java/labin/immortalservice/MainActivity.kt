@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //절전모드 미사용 확인
         val manager = applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
         var isWhiteList = false
 
@@ -28,9 +29,10 @@ class MainActivity : AppCompatActivity() {
             isWhiteList = manager.isIgnoringBatteryOptimizations(applicationContext.packageName)
 
         if(!isWhiteList){
-            val intent = Intent()
-            intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-            intent.data= Uri.parse("package:"+applicationContext.packageName)
+            val intent = Intent().apply {
+                action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+                data =  Uri.parse("package:"+applicationContext.packageName)
+            }
             startActivity(intent)
         }
 

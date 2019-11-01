@@ -72,9 +72,10 @@ class MainService : Service(){
     }
 
     private fun setAlarmTimer(){
-        val cal = Calendar.getInstance()
-        cal.timeInMillis = System.currentTimeMillis()
-        cal.add(Calendar.SECOND,1)
+        val cal = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            add(Calendar.SECOND,1)
+        }
 
         val manager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         manager.set(AlarmManager.RTC_WAKEUP, cal.timeInMillis, PendingIntent.getBroadcast(this, 0, Intent(this,ServiceDestroyReceiver::class.java),0))

@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Android-ImmortalService.iml" filepath="$PROJECT_DIR$/Android-ImmortalService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/Android-ImmortalService-app.iml" filepath="$PROJECT_DIR$/app/Android-ImmortalService-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Git-Android-ImmortalService.iml" filepath="$PROJECT_DIR$/Git-Android-ImmortalService.iml" />
       <module fileurl="file://$PROJECT_DIR$/ImmortalService.iml" filepath="$PROJECT_DIR$/ImmortalService.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/ImmortalService-app.iml" filepath="$PROJECT_DIR$/app/ImmortalService-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
